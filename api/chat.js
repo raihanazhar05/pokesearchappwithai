@@ -13,7 +13,7 @@ export default async function handler(request, response) {
 
   // Use the API key securely from Vercel's Environment Variables.
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
+  const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
   
   const prompt = `Please provide a short, fun, and interesting explanation about the Pokémon named ${pokemonName}. Include its main characteristics, personality, and any famous appearances in the anime or games.`;
 
