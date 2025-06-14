@@ -1,0 +1,189 @@
+/* --- Global Styles & Fonts --- */
+body {
+    /* A very light gray background to make the white containers pop */
+    background-color: #f0f2f5; 
+    font-family: 'Nunito', sans-serif; /* Friendly readable font */
+    color: #2c2c2c; /* Softer than pure black for text */
+    margin: 0;
+    padding: 20px;
+}
+
+/* --- Main Layout --- */
+.app-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 20px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+}
+
+/* --- Poké Ball Themed Container Card --- */
+.pokemon-container, .chatbot-container {
+    flex: 1;
+    min-width: 400px;
+    max-width: 500px;
+    background-color: white; /* The white part of the Poké Ball */
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Important for the red header */
+    border: 4px solid black; /* The black "belt" of the Poké Ball */
+}
+
+/* Red top half of the Poké Ball */
+.pokemon-container h2, .chatbot-container h2 {
+    font-family: 'Press Start 2P', cursive; /* Retro gaming font! */
+    background-color: #e74c3c; /* A strong red */
+    color: white;
+    padding: 20px;
+    margin: 0;
+    text-align: center;
+    font-size: 1.2em;
+    text-shadow: 2px 2px 0 #2c2c2c; /* Retro text shadow */
+}
+
+.pokemon-container h3 {
+    text-align: center;
+    padding: 0 20px;
+    color: #666;
+}
+
+/* Container for the main content inside the cards */
+.search-controls, .pokemon-display, .chat-input-area {
+    padding: 0 25px 25px 25px;
+}
+
+.pokemon-display {
+    padding-top: 20px;
+}
+
+/* --- Themed Inputs and Buttons --- */
+#search-input, #chat-input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    transition: all 0.2s ease-in-out;
+}
+
+#search-input:focus, #chat-input:focus {
+    border-color: #e74c3c; /* Red outline on focus */
+    box-shadow: 0 0 5px rgba(231, 76, 60, 0.5);
+    outline: none;
+}
+
+#search-button, #chat-send-button {
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    border: none;
+    padding: 12px 25px;
+}
+
+#search-button {
+    background-color: #e74c3c; /* Red button */
+}
+
+#search-button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+    transform: translateY(-2px);
+}
+
+#chat-send-button {
+    background-color: #2c2c2c; /* Black button */
+}
+
+#chat-send-button:hover {
+    background-color: #555;
+    transform: translateY(-2px);
+}
+
+
+/* --- Chat Window Styles --- */
+.chatbot-container {
+    padding: 0; /* Remove padding to let header span full width */
+}
+
+#chat-window {
+    flex-grow: 1;
+    overflow-y: auto;
+    background-color: #fdfdfd;
+    padding: 15px;
+    margin: 25px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 2px solid #eee;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message {
+    padding: 12px 18px;
+    border-radius: 20px;
+    max-width: 85%;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/* User's chat bubble - A cool blue to contrast the red */
+.user-message {
+    background-color: #3498db;
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 5px;
+}
+
+/* Bot's chat bubble - Clean and simple */
+.bot-message {
+    background-color: #ecf0f1;
+    color: #2c2c2c;
+    align-self: flex-start;
+    border-bottom-left-radius: 5px;
+}
+
+/* Stats inside the bot message */
+.bot-message .pokemon-info {
+    border-top: 2px dashed #bdc3c7;
+    margin-top: 15px;
+    padding-top: 10px;
+    font-size: 0.9em;
+}
+
+.bot-message .pokemon-info strong {
+    color: #e74c3c; /* Red labels for the stats! */
+}
+
+/* --- Pokédex Specifics --- */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+li strong {
+    color: #e74c3c;
+}
+
+/* --- Footer Styles --- */
+footer {
+    width: 100%;
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 0;
+    color: #6c757d; /* A subtle gray color */
+    font-family: 'Nunito', sans-serif;
+}

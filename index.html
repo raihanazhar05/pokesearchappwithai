@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokemon Search & Chat</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.11/dist/purify.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css" />
+    
+</head>
+<body>
+    <div class="app-container">
+        <div class="pokemon-container">
+            <h2>Pokemon Search App</h2>
+            <h3>Search by name or ID</h3>
+            <div class="search-controls">
+                <input id="search-input" required/>
+                <button id="search-button">Search!</button>
+            </div>
+            <div class="pokemon-display">
+                <div id="sprites"></div>
+                <p id="pokemon-name"></p>
+                <ul>
+                    <li>ID: <span id="pokemon-id"></span></li>
+                    <li>Weight: <span id="weight"></span></li>
+                    <li>Height: <span id="height"></span></li>
+                    <li>Type(s): <span id="types"></span></li>
+                    <li>HP: <span id="hp"></span></li>
+                    <li>Attack: <span id="attack"></span></li>
+                    <li>Defense: <span id="defense"></span></li>
+                    <li>Special Attack: <span id="special-attack"></span></li>
+                    <li>Special Defense: <span id="special-defense"></span></li>
+                    <li>Speed: <span id="speed"></span></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="chatbot-container">
+            <h2>PokéChat AI</h2>
+            <div id="chat-window">
+                </div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="e.g., Pikachu" />
+                <button id="chat-send-button">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>2025 by Raihan A.</p>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
