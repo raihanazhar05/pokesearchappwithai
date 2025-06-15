@@ -129,7 +129,7 @@ const getAiExplanation = async (pokemonName) => {
 };
 
 
-// --- REVISED: Main function to handle the chat logic ---
+// --- REVISED: Main function to handle the chat logic with loading indicator ---
 const handleChatMessage = async () => {
     const userMessage = chatInput.value.trim();
     if (!userMessage) return;
@@ -140,24 +140,39 @@ const handleChatMessage = async () => {
     appendMessage(userMessage, 'user');
     chatInput.value = '';
 
+    // --- Show the loading indicator ---
+    const loaderMessage = document.createElement("div");
+    loaderMessage.id = "loader"; // Give it an ID so we can easily remove it later
+    loaderMessage.classList.add("message", "bot-message"); // Style it like a bot message
+    loaderMessage.innerHTML = `
+        <div class="loading-indicator">
+            <div class="spinner"></div>
+            <span>Thinking...</span>
+        </div>
+    `;
+    chatWindow.appendChild(loaderMessage);
+    chatWindow.scrollTop = chatWindow.scrollHeight; // Scroll to show the loader
+
+
     const words = userMessage.toLowerCase().split(/[ ,.!?]+/);
     const pokemonName = words.find(word => isNaN(parseInt(word)));
 
     if (!pokemonName) {
+        document.getElementById("loader")?.remove(); // Remove loader before showing error
         appendMessage("I'm sorry, I couldn't figure out which Pokémon you're asking about. Please mention its name!", "bot");
         return;
     }
     
     const pokeData = await pokeSearch(pokemonName.toLowerCase());
 
+    // --- Hide the loading indicator ---
+    document.getElementById("loader")?.remove();
+
     if (pokeData) {
         const aiMarkdownText = await getAiExplanation(pokeData.name);
 
-        // --- FIX IS HERE ---
-        // 1. Convert ONLY the AI's markdown response to HTML first.
         const aiHtml = marked.parse(aiMarkdownText);
 
-        // 2. Create the stats HTML separately.
         const statsHtml = `
             <div class="pokemon-info">
                 <strong>ID:</strong> ${pokeData.id} | 
@@ -167,10 +182,7 @@ const handleChatMessage = async () => {
             </div>
         `;
         
-        // 3. Combine the two HTML strings.
         const combinedHtml = aiHtml + statsHtml;
-
-        // 4. Send the final, combined HTML to be appended.
         appendMessage(combinedHtml, 'bot');
 
     } else {
