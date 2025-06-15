@@ -23,7 +23,7 @@ const chatSendButton = document.getElementById("chat-send-button");
 // --- ADD THIS CONSTANT ---
 const initialBotMessage = `
     <div class="message bot-message">
-        <p>Ask me to tell you about a Pokémon!</p>
+        <p>Type a Pokémon name and I'll tell you some interesting facts about it!</p>
     </div>
 `;
 
