@@ -15,20 +15,17 @@ const spcAtt = document.getElementById("special-attack");
 const spcDef = document.getElementById("special-defense");
 const speed = document.getElementById("speed");
 const sprites = document.getElementById("sprites");
-
-// --- NEW: AI Chatbot Element Selections ---
+// --- AI Chatbot Element Selections ---
 const chatWindow = document.getElementById("chat-window");
 const chatInput = document.getElementById("chat-input");
 const chatSendButton = document.getElementById("chat-send-button");
-
-// --- ADD THIS CONSTANT ---
 const initialBotMessage = `
     <div class="message bot-message">
         <p>Type a Pokémon name and I'll tell you some interesting facts about it!</p>
     </div>
 `;
 
-// --- Existing pokeSearch Function (with a small change to return data) ---
+// --- PokeSearch Function (with a small change to return data) ---
 const pokeSearch = async (pokemonNameOrId) => {
   try {
     const res = await fetch(`${pokeApi}/${pokemonNameOrId}`);
@@ -76,16 +73,13 @@ function clearPage() {
   speed.textContent = '';
 }
 
-// --- NEW & IMPROVED: Function to add messages to the chat window ---
-// This version now correctly handles and sanitizes markdown from the AI.
-
 // --- REVISED: This function now only sanitizes and displays pre-formatted HTML ---
 function appendMessage(content, sender) {
     const messageWrapper = document.createElement("div");
     messageWrapper.classList.add("message", `${sender}-message`);
 
     if (sender === 'bot') {
-        // The content is already HTML, so we just need to sanitize it.
+        // The content is already HTML, so just sanitize it.
         // DO NOT parse it again.
         const sanitizedHtml = DOMPurify.sanitize(content);
         messageWrapper.innerHTML = sanitizedHtml;
@@ -101,16 +95,16 @@ function appendMessage(content, sender) {
     chatWindow.scrollTop = chatWindow.scrollHeight; // Auto-scroll to bottom
 }
 
-// --- NEW: Function to ask the AI about a Pokémon via our Serverless Function ---
+// --- Function to ask the AI about a Pokémon via Serverless Function ---
 const getAiExplanation = async (pokemonName) => {
     try {
-        // The new URL points to our own serverless function.
+        // URL to point to the serverless function.
         const res = await fetch('/api/chat', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            // We just need to send the pokemonName now.
+            // Just need to send the pokemonName.
             body: JSON.stringify({ pokemonName: pokemonName }),
         });
 
@@ -120,7 +114,7 @@ const getAiExplanation = async (pokemonName) => {
         }
 
         const data = await res.json();
-        // The response from our function is nested under the 'text' property.
+        // The response from the function is nested under the 'text' property.
         return data.text;
 
     } catch (err) {
@@ -130,7 +124,7 @@ const getAiExplanation = async (pokemonName) => {
 };
 
 
-// --- REVISED: Main function to handle the chat logic with loading indicator ---
+// --- Main function to handle the chat logic with loading indicator ---
 const handleChatMessage = async () => {
     const userMessage = chatInput.value.trim();
     if (!userMessage) return;
@@ -191,8 +185,8 @@ const handleChatMessage = async () => {
     }
 };
 
+// Function to clear the chat and restore the initial welcome message.
 function resetChatWindow() {
-  // This function now clears the chat and restores the initial welcome message.
   chatWindow.innerHTML = initialBotMessage;
 }
 
