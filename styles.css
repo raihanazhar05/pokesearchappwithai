@@ -216,11 +216,10 @@ footer {
 }
 
 #random-button {
-    background-color: #f1c40f; /* A fun yellow color */
-    padding: 12px 20px;
+    background-color: #e74c3c; /* Red button */
 }
 
 #random-button:hover {
-    background-color: #f39c12; /* A darker yellow on hover */
+    background-color: #c0392b; /* Darker red on hover */
     transform: translateY(-2px);
 }
