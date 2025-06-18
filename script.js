@@ -2,6 +2,7 @@
 const pokeApi = "https://pokeapi-proxy.freecodecamp.rocks/api/pokemon";
 const input = document.getElementById("search-input");
 const button = document.getElementById("search-button");
+const randomButton = document.getElementById("random-button");
 const pokeName = document.getElementById("pokemon-name");
 const pokeId = document.getElementById("pokemon-id");
 const weight = document.getElementById("weight");
@@ -195,6 +196,12 @@ function resetChatWindow() {
   chatWindow.innerHTML = initialBotMessage;
 }
 
+const handleRandomSearch = () => {
+  // There are approximately 1025 Pokémon in the API.
+  const randomId = Math.floor(Math.random() * 1025) + 1;
+  pokeSearch(randomId);
+};
+
 // --- Event Listeners ---
 button.addEventListener("click", (e) => {
   e.preventDefault();
@@ -202,6 +209,8 @@ button.addEventListener("click", (e) => {
     pokeSearch(input.value.toLowerCase());
   }
 });
+
+randomButton.addEventListener("click", handleRandomSearch);
 
 chatSendButton.addEventListener("click", handleChatMessage);
 chatInput.addEventListener("keypress", (e) => {
