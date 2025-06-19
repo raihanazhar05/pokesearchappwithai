@@ -270,3 +270,27 @@ footer {
 .toggle-button:hover {
     background-color: #2980b9;
 }
+
+#abilities-container {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.ability {
+    margin-bottom: 15px;
+}
+
+.ability h4 {
+    margin: 0 0 5px 0;
+    color: #333;
+    text-transform: capitalize;
+    font-family: 'Press Start 2P', cursive; /* Use the fun header font */
+    font-size: 0.8em;
+}
+
+.ability p {
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.5;
+    color: #555;
+}

@@ -31,6 +31,35 @@ let defaultSpriteUrl = null;
 let shinySpriteUrl = null;   
 let isShiny = false;         
 
+const displayAbilities = async (abilities) => {
+  const abilitiesContainer = document.getElementById("abilities-container");
+  abilitiesContainer.innerHTML = '<h3>Abilities</h3>'; // Add a header and clear old content
+
+  for (const abilityItem of abilities) {
+    try {
+      // Fetch the detailed information for each ability
+      const abilityResponse = await fetch(abilityItem.ability.url);
+      const abilityData = await abilityResponse.json();
+      
+      // Find the English description from the effect_entries array
+      const englishEntry = abilityData.effect_entries.find(entry => entry.language.name === 'en');
+      const description = englishEntry ? englishEntry.effect : 'No English description available.';
+
+      // Create the HTML for this ability
+      const abilityDiv = document.createElement('div');
+      abilityDiv.classList.add('ability');
+      abilityDiv.innerHTML = `
+        <h4>${abilityItem.ability.name.replace(/-/g, ' ')}</h4>
+        <p>${description}</p>
+      `;
+      abilitiesContainer.appendChild(abilityDiv);
+
+    } catch (error) {
+      console.error(`Failed to fetch details for ability: ${abilityItem.ability.name}`, error);
+    }
+  }
+};
+
 // --- PokeSearch Function (with a small change to return data) ---
 const pokeSearch = async (pokemonNameOrId) => {
   try {
@@ -73,6 +102,9 @@ const pokeSearch = async (pokemonNameOrId) => {
       playCryButton.style.display = 'none'; // Keep it hidden if no cry exists
     }
 
+    // After displaying the main data, fetch and display the abilities
+    displayAbilities(data.abilities);
+
     return data; // Return the data for the chatbot
   } catch(err) {
     clearPage();
@@ -85,6 +117,7 @@ const pokeSearch = async (pokemonNameOrId) => {
 function clearPage() {
   const sprite = document.getElementById("sprite");
   if (sprite) sprite.remove();
+  document.getElementById("abilities-container").innerHTML = '';
   playCryButton.style.display = 'none';
   shinyToggleButton.style.display = 'none';
   pokeName.textContent = '';
