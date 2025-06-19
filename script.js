@@ -16,6 +16,7 @@ const spcDef = document.getElementById("special-defense");
 const speed = document.getElementById("speed");
 const sprites = document.getElementById("sprites");
 const playCryButton = document.getElementById("play-cry-button");
+const shinyToggleButton = document.getElementById("shiny-toggle-button")
 // --- AI Chatbot Element Selections ---
 const chatWindow = document.getElementById("chat-window");
 const chatInput = document.getElementById("chat-input");
@@ -26,6 +27,9 @@ const initialBotMessage = `
     </div>
 `;
 let currentCryUrl = null;
+let defaultSpriteUrl = null; 
+let shinySpriteUrl = null;   
+let isShiny = false;         
 
 // --- PokeSearch Function (with a small change to return data) ---
 const pokeSearch = async (pokemonNameOrId) => {
@@ -49,6 +53,17 @@ const pokeSearch = async (pokemonNameOrId) => {
     spcDef.textContent = data.stats[4].base_stat;
     speed.textContent = data.stats[5].base_stat;
     sprites.innerHTML = `<img id="sprite" src="${data.sprites.front_default}" alt="${data.name} default">`;
+
+    // Handle the shiny sprite toggle
+    isShiny = false; // Reset state on new search
+    defaultSpriteUrl = data.sprites.front_default;
+    shinySpriteUrl = data.sprites.front_shiny;
+
+    if (shinySpriteUrl) {
+      shinyToggleButton.style.display = 'block'; // Show the button
+    } else {
+      shinyToggleButton.style.display = 'none'; // Hide if no shiny sprite
+    }
     
     if (data.cries && data.cries.latest) {
       currentCryUrl = data.cries.latest;
@@ -71,6 +86,7 @@ function clearPage() {
   const sprite = document.getElementById("sprite");
   if (sprite) sprite.remove();
   playCryButton.style.display = 'none';
+  shinyToggleButton.style.display = 'none';
   pokeName.textContent = '';
   pokeId.textContent = '';
   weight.textContent = '';
@@ -234,5 +250,17 @@ playCryButton.addEventListener("click", () => {
   if (currentCryUrl) {
     const cryAudio = new Audio(currentCryUrl);
     cryAudio.play();
+  }
+});
+
+// Event listener for the shiny toggle button
+shinyToggleButton.addEventListener("click", () => {
+  // Toggle the shiny state
+  isShiny = !isShiny; 
+  
+  const spriteImg = document.getElementById('sprite');
+  if (spriteImg) {
+    // Change the image source based on the new state
+    spriteImg.src = isShiny ? shinySpriteUrl : defaultSpriteUrl;
   }
 });

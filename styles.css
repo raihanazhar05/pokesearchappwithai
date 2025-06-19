@@ -250,3 +250,23 @@ footer {
 .cry-button:hover {
     opacity: 0.7;
 }
+
+/* --- NEW: Toggle Button Styles --- */
+.toggle-button {
+    display: none; /* Hide the button by default */
+    margin: 10px auto;
+    padding: 8px 16px;
+    background-color: #3498db; /* A nice blue to match the user chat bubble */
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+    background-color: #2980b9;
+}
