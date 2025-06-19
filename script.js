@@ -37,7 +37,7 @@ const pokeSearch = async (pokemonNameOrId) => {
     const data = await res.json();
 
     // Display data in the Pokedex section
-    pokeName.textContent = data.name.toUpperCase();
+    pokeName.textContent = `<b>${data.name.toUpperCase()}</b>`;
     pokeId.textContent = data.id;
     weight.textContent = data.weight;
     height.textContent = data.height;
