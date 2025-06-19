@@ -1,5 +1,5 @@
 // --- Existing Element Selections ---
-const pokeApi = "https://pokeapi-proxy.freecodecamp.rocks/api/pokemon";
+const pokeApi = "https://pokeapi.co/api/v2/pokemon";
 const input = document.getElementById("search-input");
 const button = document.getElementById("search-button");
 const randomButton = document.getElementById("random-button");
@@ -15,6 +15,7 @@ const spcAtt = document.getElementById("special-attack");
 const spcDef = document.getElementById("special-defense");
 const speed = document.getElementById("speed");
 const sprites = document.getElementById("sprites");
+const playCryButton = document.getElementById("play-cry-button");
 // --- AI Chatbot Element Selections ---
 const chatWindow = document.getElementById("chat-window");
 const chatInput = document.getElementById("chat-input");
@@ -24,6 +25,7 @@ const initialBotMessage = `
         <p>Type a Pokémon name and I'll tell you some interesting facts about it!</p>
     </div>
 `;
+let currentCryUrl = null;
 
 // --- PokeSearch Function (with a small change to return data) ---
 const pokeSearch = async (pokemonNameOrId) => {
@@ -48,6 +50,14 @@ const pokeSearch = async (pokemonNameOrId) => {
     speed.textContent = data.stats[5].base_stat;
     sprites.innerHTML = `<img id="sprite" src="${data.sprites.front_default}" alt="${data.name} default">`;
     
+    if (data.cries && data.cries.latest) {
+      currentCryUrl = data.cries.latest;
+      playCryButton.style.display = 'inline-block'; // Show the button
+    } else {
+      currentCryUrl = null;
+      playCryButton.style.display = 'none'; // Keep it hidden if no cry exists
+    }
+
     return data; // Return the data for the chatbot
   } catch(err) {
     clearPage();
@@ -60,6 +70,7 @@ const pokeSearch = async (pokemonNameOrId) => {
 function clearPage() {
   const sprite = document.getElementById("sprite");
   if (sprite) sprite.remove();
+  playCryButton.style.display = 'none';
   pokeName.textContent = '';
   pokeId.textContent = '';
   weight.textContent = '';
@@ -216,4 +227,12 @@ chatInput.addEventListener("keypress", (e) => {
 // This ensures the initial welcome message is displayed when the page first loads.
 document.addEventListener('DOMContentLoaded', () => {
     resetChatWindow();
+});
+
+// Event listener for the cry button
+playCryButton.addEventListener("click", () => {
+  if (currentCryUrl) {
+    const cryAudio = new Audio(currentCryUrl);
+    cryAudio.play();
+  }
 });
